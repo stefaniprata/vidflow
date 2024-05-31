@@ -17,7 +17,7 @@ async function getVideos() {
             <li class="videos__item">
                 <iframe src="${video.url}" title"${video.titulo}" frameborder="0" allowfullscreen></iframe>
                 <div class="descricao-video">
-                    <img class="img-canal" src="${video.imagem}" alt="Logo do Canal>
+                    <img class="img-canal" src="${video.imagem}" alt="Logo do Canal">
                     <h3 class="titulo-video">${video.titulo}</h3>
                     <p class="titulo-canal">${video.descricao}</p>
                 </div>
@@ -35,3 +35,40 @@ async function getVideos() {
 }
 
 getVideos();
+
+//search na barra de pesquisa
+const barraDePesquisa = document.querySelector(".pesquisar__input");
+
+barraDePesquisa.addEventListener("input", filtrarPesquisa);
+
+//function refatorada
+function filtrarPesquisa() {    
+    const videos = document.querySelectorAll(".videos__item");
+    const valorFiltro = barraDePesquisa.value.toLowerCase();
+    
+    videos.forEach((video) => {
+        const titulo = video.querySelector(".titulo-video").textContent.toLowerCase();
+        //if em condição ternária
+        video.style.display = valorFiltro ? titulo.includes(valorFiltro) ? 'block' : 'none' : 'block';
+
+        //video.style.display = (titulo.includes(valorFiltro)) ? "block" : "none";
+    });
+}
+// function filtrarPesquisa() {
+//     const videos = document.querySelectorAll(".videos__item");
+//     if (barraDePesquisa.value != "") {
+//         for (let video of videos) {
+//             let titulo = video.querySelector(".titulo-video").textContent.toLowerCase();
+//             let valorFiltro = barraDePesquisa.value.toLowerCase();
+
+//             if (!titulo.includes(valorFiltro)) {
+//                 video.style.display = "none";
+//             } else {
+//                 video.style.display = "block";
+//             }
+//         }
+//     } else{
+//         video.style.display = "block";
+//     }
+// }
+
